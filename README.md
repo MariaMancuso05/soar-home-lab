@@ -75,7 +75,7 @@ The lab uses **3 Ubuntu VMs + 1 Kali Linux VM** on a private host-only network (
 
 The current workflow (`Wazuh SOAR Pipeline`) handles the full alert-to-notification chain automatically, from the moment Wazuh fires an alert to the creation of a case in TheHive and a real-time Telegram notification.
 
-![Shuffle Workflow](workflow_screenshot.png)
+![Shuffle Workflow](ShuffleWorkflow.png)
 
 ### Node breakdown
 
