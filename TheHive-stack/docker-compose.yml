@@ -1,0 +1,35 @@
+services:
+  elasticsearch:
+    image: elasticsearch:7.17.9
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m   # limita RAM
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+
+  thehive:
+    image: strangebee/thehive:5.6.1
+    depends_on: [elasticsearch]
+    ports: ['9000:9000']
+    environment:
+      - th_db_provider=elasticsearch
+      - th_db_es_hosts=elasticsearch:9200
+
+
+  cortex:
+    image: thehiveproject/cortex:3.1.7
+    depends_on: [elasticsearch]
+    ports: ['9001:9001']
+    environment:
+      - job_directory=/tmp/cortex-jobs
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - cortexdata:/var/run/cortex
+
+
+volumes:
+  esdata:
+  cortexdata:
+
